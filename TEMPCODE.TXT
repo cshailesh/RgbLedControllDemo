@@ -1,0 +1,696 @@
+TEMPCODE.TXT
+ Created on: 8 Mar 2020
+     Author: JANVI
+
+     
+     
+uint8_t DEL_Off2On(uint8_t pRed, uint8_t pGreen, uint8_t pBlue)
+{
+	uint8_t tmpR = 255;
+	uint8_t tmpG = 255;
+	uint8_t tmpB = 255;
+
+	uint16_t patternDelay = 10;
+	for (int fwd = 0; fwd < MaxLoop; ++fwd)
+	{
+		FillColor(tmpR, tmpG, tmpB);
+		SendLedData();
+		if (pRed > 0)
+		{
+			tmpR--;
+		}
+
+		if (pGreen > 0)
+		{
+			tmpG--;
+		}
+
+		if (pBlue > 0)
+		{
+			tmpB--;
+		}
+
+		if (PatternDelay(patternDelay))
+		{
+			return 0;
+		}
+	}
+
+	for (int fwd = 0; fwd < MaxLoop; ++fwd)
+	{
+		FillColor(tmpR, tmpG, tmpB);
+		SendLedData();
+		if (pRed > 0)
+		{
+			tmpR++;
+		}
+
+		if (pGreen > 0)
+		{
+			tmpG++;
+		}
+
+		if (pBlue > 0)
+		{
+			tmpB++;
+		}
+
+		if (PatternDelay(patternDelay))
+		{
+			return 0;
+		}
+	}
+
+	FillColor(255, 255, 255);
+	SendLedData();
+
+	return 0;
+}
+
+uint8_t DEL_PlayPattern1()
+{
+
+	BeatSenseStop();
+
+	uint8_t tmpR = 0;
+	uint8_t tmpG = 0;
+	uint8_t tmpB = 0;
+
+	uint32_t patternDelay = 0;
+
+	while (1)
+	{
+		for (int fwd = 0; fwd < 100; ++fwd)
+		{
+			FillColorPercent(tmpR, tmpG, tmpB);
+			SendLedData();
+			tmpR++;
+			tmpG++;
+			tmpB++;
+			patternDelay = gPatternSpeed[gCurMenu];
+			if (PatternDelay(patternDelay))
+			{
+				return 0;
+			}
+		}
+
+		for (int back = 0; back < 100; ++back)
+		{
+			FillColorPercent(tmpR, tmpG, tmpB);
+			SendLedData();
+			tmpR--;
+			tmpG--;
+			tmpB--;
+
+			patternDelay = gPatternSpeed[gCurMenu];
+			if (PatternDelay(patternDelay))
+			{
+				return 1;
+			}
+		}
+	}
+}
+
+uint8_t wheelR;
+uint8_t wheelG;
+uint8_t wheelB;
+
+uint8_t WheelCount;
+
+uint8_t wheelMidLedNo;
+
+uint8_t DEL_PlayPattern2()
+{
+	BeatSenseStop();
+
+	wheelMidLedNo = gCurrentLedCount / 2;
+
+	gPatternSpeed[gCurMenu] = 50;
+
+	uint8_t tmpR = 0;
+	uint8_t tmpG = 0;
+	uint8_t tmpB = 0;
+
+	uint32_t patternDelay = 0;
+
+	while (1)
+	{
+		for (int fwd = 0; fwd < 99; ++fwd)
+		{
+			FillColorPercent(tmpR, tmpG, tmpB);
+			SendLedData();
+			tmpB--;
+			patternDelay = gPatternSpeed[gCurMenu];
+			if (PatternDelay(patternDelay))
+			{
+				return 0;
+			}
+		}
+
+		//GREEN
+
+		for (int fwd = 0; fwd < 99; ++fwd)
+		{
+			FillColorPercent(tmpR, tmpG, tmpB);
+			SendLedData();
+			tmpR++;
+			patternDelay = gPatternSpeed[gCurMenu];
+			if (PatternDelay(patternDelay))
+			{
+				return 0;
+			}
+		}
+
+		// YELLOW
+
+		for (int fwd = 0; fwd < 99; ++fwd)
+		{
+			FillColorPercent(tmpR, tmpG, tmpB);
+			SendLedData();
+			tmpG--;
+			patternDelay = gPatternSpeed[gCurMenu];
+			if (PatternDelay(patternDelay))
+			{
+				return 0;
+			}
+		}
+
+		// RED
+
+		for (int fwd = 0; fwd < 99; ++fwd)
+		{
+			FillColorPercent(tmpR, tmpG, tmpB);
+			SendLedData();
+			tmpB++;
+			patternDelay = gPatternSpeed[gCurMenu];
+			if (PatternDelay(patternDelay))
+			{
+				return 0;
+			}
+		}
+
+		// PINK
+
+		for (int fwd = 0; fwd < 99; ++fwd)
+		{
+			FillColorPercent(tmpR, tmpG, tmpB);
+			SendLedData();
+			tmpR--;
+			patternDelay = gPatternSpeed[gCurMenu];
+			if (PatternDelay(patternDelay))
+			{
+				return 0;
+			}
+		}
+
+		// BLUE
+
+		for (int fwd = 0; fwd < 99; ++fwd)
+		{
+			FillColorPercent(tmpR, tmpG, tmpB);
+			SendLedData();
+			tmpG++;
+			tmpR++;
+			patternDelay = gPatternSpeed[gCurMenu];
+			if (PatternDelay(patternDelay))
+			{
+				return 0;
+			}
+		}
+
+		// WHITE
+
+		for (int fwd = 0; fwd < 99; ++fwd)
+		{
+			FillColorPercent(tmpR, tmpG, tmpB);
+			SendLedData();
+			tmpR--;
+			patternDelay = gPatternSpeed[gCurMenu];
+			if (PatternDelay(patternDelay))
+			{
+				return 0;
+			}
+		}
+		// skyblue
+
+	}
+}
+
+
+uint8_t Off2On3333(uint8_t pRed, uint8_t pGreen, uint8_t pBlue)
+{
+	uint8_t tmpR = 255;
+	uint8_t tmpG = 255;
+	uint8_t tmpB = 255;
+
+	uint16_t patternDelay = 10;
+	for (int fwd = 0; fwd < MaxLoop; ++fwd)
+	{
+		FillColor(tmpR, tmpG, tmpB);
+		SendLedData();
+		if (pRed > 0)
+		{
+			tmpR--;
+		}
+
+		if (pGreen > 0)
+		{
+			tmpG--;
+		}
+
+		if (pBlue > 0)
+		{
+			tmpB--;
+		}
+
+		if (PatternDelay(patternDelay))
+		{
+			return 0;
+		}
+	}
+
+	for (int fwd = 0; fwd < MaxLoop; ++fwd)
+	{
+		FillColor(tmpR, tmpG, tmpB);
+		SendLedData();
+		if (pRed > 0)
+		{
+			tmpR++;
+		}
+
+		if (pGreen > 0)
+		{
+			tmpG++;
+		}
+
+		if (pBlue > 0)
+		{
+			tmpB++;
+		}
+
+		if (PatternDelay(patternDelay))
+		{
+			return 0;
+		}
+	}
+
+	FillColor(255, 255, 255);
+	SendLedData();
+
+	return 0;
+}
+
+
+uint8_t PlaySlowMotion2()
+{
+	BeatSenseStop();
+
+	volatile uint32_t fwd = 0;
+	wheelMidLedNo = gCurrentLedCount / 2;
+
+	gPatternSpeed[gCurMenu] = 85;
+//	gPatternSpeed[gCurMenu] = 10;
+	LCD_Update_Speed();
+
+	uint8_t tmpR = 255;
+	uint8_t tmpG = 255;
+	uint8_t tmpB = 255;
+
+	uint32_t patternDelay = 0;
+
+	uint32_t isFirst = 1;
+
+	while (1)
+	{
+		if (isFirst == 1)
+		{
+			for (fwd = 0; fwd < MaxLoop; ++fwd)
+			{
+				FillColor(tmpR, tmpG, tmpB);
+				SendLedData();
+				tmpG--;
+				patternDelay = 100 - gPatternSpeed[gCurMenu];
+				if (PatternDelay(patternDelay))
+				{
+					return 0;
+				}
+			}
+			isFirst = 0;
+		}
+
+		//GREEN
+
+		for (fwd = 0; fwd < MaxLoop; ++fwd)
+		{
+			FillColor(tmpR, tmpG, tmpB);
+			SendLedData();
+			tmpR--;
+			patternDelay = 100 - gPatternSpeed[gCurMenu];
+			if (PatternDelay(patternDelay))
+			{
+				return 0;
+			}
+		}
+
+		// YELLOW
+
+		for (fwd = 0; fwd < MaxLoop; ++fwd)
+		{
+			FillColor(tmpR, tmpG, tmpB);
+			SendLedData();
+			tmpG++;
+			patternDelay = 100 - gPatternSpeed[gCurMenu];
+			if (PatternDelay(patternDelay))
+			{
+				return 0;
+			}
+		}
+
+		// RED
+
+		for (fwd = 0; fwd < MaxLoop; ++fwd)
+		{
+			FillColor(tmpR, tmpG, tmpB);
+			SendLedData();
+			tmpB--;
+			patternDelay = 100 - gPatternSpeed[gCurMenu];
+			if (PatternDelay(patternDelay))
+			{
+				return 0;
+			}
+		}
+
+		// PINK
+
+		for (fwd = 0; fwd < MaxLoop; ++fwd)
+		{
+			FillColor(tmpR, tmpG, tmpB);
+			SendLedData();
+			tmpR++;
+			patternDelay = 100 - gPatternSpeed[gCurMenu];
+			if (PatternDelay(patternDelay))
+			{
+				return 0;
+			}
+		}
+
+		// BLUE
+
+		for (fwd = 0; fwd < MaxLoop; ++fwd)
+		{
+			FillColor(tmpR, tmpG, tmpB);
+			SendLedData();
+			tmpG--;
+			tmpR--;
+			patternDelay = 100 - gPatternSpeed[gCurMenu];
+			if (PatternDelay(patternDelay))
+			{
+				return 0;
+			}
+		}
+
+		// WHITE
+
+		for (fwd = 0; fwd < MaxLoop; ++fwd)
+		{
+			FillColor(tmpR, tmpG, tmpB);
+			SendLedData();
+			tmpR++;
+			tmpB++;
+
+			patternDelay = 100 - gPatternSpeed[gCurMenu];
+			if (PatternDelay(patternDelay))
+			{
+				return 0;
+			}
+		}
+		// skyblue
+	}
+}
+
+
+//uint8_t PlayColorToneRed()
+//{
+//
+//	BeatSenseStop();
+//
+//	uint8_t tmpR = 0;
+//	uint8_t tmpG = 0;
+//	uint8_t tmpB = 0;
+//
+//	uint32_t patternDelay = 0;
+//
+//	gPatternSpeed[gCurMenu] = DEFAULT_TONE_LEVEL;
+//	LCD_Update_Speed();
+//	tmpR = gPatternSpeed[gCurMenu];
+//
+//	FillAllOff();
+//	SendLedData();
+//
+//	while (1)
+//	{
+//		for (int fwd = 0; fwd < 100; ++fwd)
+//		{
+//			FillColor(tmpR, tmpG, tmpB);
+//			SendLedData();
+//			tmpR = gPatternSpeed[gCurMenu];
+//			//	tmpG = gPatternSpeed[gCurMenu];
+//
+////			tmpR = 100;
+////			tmpG = 30;
+//
+//			patternDelay = gPatternSpeed[gCurMenu];
+//			if (PatternDelay(patternDelay))
+//			{
+//				return 0;
+//			}
+//		}
+//	}
+//}
+//
+//uint8_t PlayColorToneBlue()
+//{
+//	BeatSenseStop();
+//
+//	uint8_t tmpR = 0;
+//	uint8_t tmpG = 0;
+//	uint8_t tmpB = 0;
+//
+//	uint32_t patternDelay = 0;
+//
+//	gPatternSpeed[gCurMenu] = DEFAULT_TONE_LEVEL;
+//	LCD_Update_Speed();
+//	tmpB = gPatternSpeed[gCurMenu];
+//
+//	FillAllOff();
+//	SendLedData();
+//
+//	while (1)
+//	{
+//		for (int fwd = 0; fwd < 100; ++fwd)
+//		{
+//			FillColorPercent(tmpR, tmpG, tmpB);
+//			SendLedData();
+//			tmpB = gPatternSpeed[gCurMenu];
+//			patternDelay = gPatternSpeed[gCurMenu];
+//			if (PatternDelay(patternDelay))
+//			{
+//				return 0;
+//			}
+//		}
+//	}
+//}
+//
+//uint8_t PlayColorToneGreen()
+//{
+//	BeatSenseStop();
+//
+//	uint8_t tmpR = 0;
+//	uint8_t tmpG = 0;
+//	uint8_t tmpB = 0;
+//
+//	uint32_t patternDelay = 0;
+//
+//	gPatternSpeed[gCurMenu] = DEFAULT_TONE_LEVEL;
+//	LCD_Update_Speed();
+//	tmpG = gPatternSpeed[gCurMenu];
+//
+//	FillAllOff();
+//	SendLedData();
+//
+//	while (1)
+//	{
+//		for (int fwd = 0; fwd < 100; ++fwd)
+//		{
+//			FillColorPercent(tmpR, tmpG, tmpB);
+//			SendLedData();
+//			tmpG = gPatternSpeed[gCurMenu];
+//			patternDelay = gPatternSpeed[gCurMenu];
+//			if (PatternDelay(patternDelay))
+//			{
+//				return 0;
+//			}
+//		}
+//	}
+//}
+//
+//uint8_t PlayColorTonePink()
+//{
+//	BeatSenseStop();
+//
+//	uint8_t tmpR = 0;
+//	uint8_t tmpG = 0;
+//	uint8_t tmpB = 0;
+//
+//	uint32_t patternDelay = 0;
+//
+//	gPatternSpeed[gCurMenu] = DEFAULT_TONE_LEVEL;
+//	LCD_Update_Speed();
+//	tmpB = gPatternSpeed[gCurMenu];
+//	tmpR = tmpB;
+//
+//	FillAllOff();
+//	SendLedData();
+//
+//	while (1)
+//	{
+//		for (int fwd = 0; fwd < 100; ++fwd)
+//		{
+//			FillColorPercent(tmpR, tmpG, tmpB);
+//			SendLedData();
+//			tmpB = gPatternSpeed[gCurMenu];
+//			tmpR = tmpB;
+//
+//			patternDelay = gPatternSpeed[gCurMenu];
+//			if (PatternDelay(patternDelay))
+//			{
+//				return 0;
+//			}
+//		}
+//	}
+//}
+//
+//uint8_t PlayColorToneSkyBlue()
+//{
+//	BeatSenseStop();
+//
+//	uint8_t tmpR = 0;
+//	uint8_t tmpG = 0;
+//	uint8_t tmpB = 0;
+//
+//	uint32_t patternDelay = 0;
+//
+//	gPatternSpeed[gCurMenu] = DEFAULT_TONE_LEVEL;
+//	LCD_Update_Speed();
+//	tmpB = gPatternSpeed[gCurMenu];
+//	tmpG = tmpB;
+//
+//	FillAllOff();
+//	SendLedData();
+//
+//	while (1)
+//	{
+//		for (int fwd = 0; fwd < 100; ++fwd)
+//		{
+//			FillColorPercent(tmpR, tmpG, tmpB);
+//			SendLedData();
+//			tmpB = gPatternSpeed[gCurMenu];
+//			tmpG = tmpB;
+//
+//			patternDelay = gPatternSpeed[gCurMenu];
+//			if (PatternDelay(patternDelay))
+//			{
+//				return 0;
+//			}
+//		}
+//	}
+//}
+//
+//uint8_t PlayColorToneYellow()
+//{
+//	BeatSenseStop();
+//
+//	uint8_t tmpR = 0;
+//	uint8_t tmpG = 0;
+//	uint8_t tmpB = 0;
+//
+//	uint32_t patternDelay = 0;
+//
+//	gPatternSpeed[gCurMenu] = DEFAULT_TONE_LEVEL;
+//	LCD_Update_Speed();
+//	tmpR = gPatternSpeed[gCurMenu];
+//	tmpG = gPatternSpeed[gCurMenu];
+//
+//	FillAllOff();
+//	SendLedData();
+//
+//	while (1)
+//	{
+//		for (int fwd = 0; fwd < 100; ++fwd)
+//		{
+//			FillColorPercent(tmpR, tmpG, tmpB);
+//			SendLedData();
+//			tmpR = gPatternSpeed[gCurMenu];
+//			tmpG = gPatternSpeed[gCurMenu];
+//
+//			patternDelay = gPatternSpeed[gCurMenu];
+//			if (PatternDelay(patternDelay))
+//			{
+//				return 0;
+//			}
+//		}
+//	}
+//}
+
+
+
+
+
+void rainbow(uint8_t wait) {
+  uint16_t i, j;
+
+  for(j=0; j<256; j++) {
+    for(i=0; i<strip.numPixels(); i++) 
+    {
+    
+      //strip.setPixelColor(i, Wheel((i*1+j) & 255));
+		
+		SetLedColor(i, 255, 255, 255);
+
+    }
+//    strip.show();
+	SendLedData();
+    delay(wait);
+    
+    FillColorPercent(tmpR, tmpG, tmpB);
+	SendLedData();
+    
+    
+  }
+}
+
+
+uint32_t ColorU32(1uint8_t r, uint8_t g, uint8_t b) {
+  return ((uint32_t)r << 16) | ((uint32_t)g <<  8) | b;
+}
+
+// Input a value 0 to 255 to get a color value.
+// The colours are a transition r - g - b - back to r.
+uint32_t Wheel(byte WheelPos) {
+  if(WheelPos < 85) {
+    return ColorU32(WheelPos * 3, 255 - WheelPos * 3, 0);
+  } 
+  else if(WheelPos < 170) {
+    WheelPos -= 85;
+    return ColorU32(255 - WheelPos * 3, 0, WheelPos * 3);
+  } 
+  else {
+    WheelPos -= 170;
+    return ColorU32(0, WheelPos * 3, 255 - WheelPos * 3);
+  }
+}
+
+
+
+
+     
